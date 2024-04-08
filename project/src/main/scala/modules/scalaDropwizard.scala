@@ -32,7 +32,7 @@ object scalaDropwizard {
     "org.typelevel"                  %% "cats-core"               % catsVersion,
     "org.scala-lang.modules"         %% "scala-java8-compat"      % "1.0.2"            % Test,
     "org.scalatest"                  %% "scalatest"               % scalatestVersion   % Test,
-    "org.mockito"                    %% "mockito-scala-scalatest" % "1.17.30"           % Test,
+    "org.mockito"                    %% "mockito-scala-scalatest" % "1.17.31"           % Test,
   ).map(_.cross(CrossVersion.for3Use2_13))
 
   val project = commonModule("scala-dropwizard")
