@@ -105,7 +105,7 @@ object core {
         libraryDependencies ++= Seq(
           "io.swagger.parser.v3"        % "swagger-parser"                % "2.1.19",
         ) ++ Seq(
-          "org.scala-lang.modules"      %% "scala-collection-compat"      % "2.11.0",
+          "org.scala-lang.modules"      %% "scala-collection-compat"      % "2.12.0",
           "org.tpolecat"                %% "atto-core"                    % "0.9.5",
           "org.typelevel"               %% "cats-core"                    % catsVersion,
           "org.typelevel"               %% "cats-kernel"                  % catsVersion,
