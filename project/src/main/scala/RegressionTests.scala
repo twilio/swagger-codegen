@@ -5,6 +5,7 @@ import sbt.file
 object RegressionTests {
   val exampleFrameworkSuites = Map(
     "scala" -> List(
+      ExampleFramework("zio-http", "zioHttp", List("server")),
       ExampleFramework("akka-http", "akkaHttp"),
       ExampleFramework("http4s-v0.22", "http4s-v0_22"),
       ExampleFramework("http4s", "http4s"),

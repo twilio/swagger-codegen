@@ -97,7 +97,7 @@ lazy val root = modules.root.project
   .dependsOn(core % "compile->compile;test->test")
   .dependsOn(javaSupport, scalaSupport)
   .dependsOn(javaAsyncHttp, javaDropwizard, javaSpringMvc)
-  .dependsOn(scalaAkkaHttp, scalaDropwizard, scalaHttp4s)
+  .dependsOn(scalaAkkaHttp, scalaDropwizard, scalaHttp4s, scalaZioHttp)
   .dependsOn(cli)
   .aggregate(allDeps, microsite)
   .aggregate(
@@ -111,6 +111,7 @@ lazy val root = modules.root.project
 
     scalaSupport,
     scalaAkkaHttp,
+    scalaZioHttp,
     scalaHttp4s,
     scalaDropwizard,
   )
@@ -127,6 +128,7 @@ lazy val samples = (project in file("modules/samples"))
     javaSpringMvcSample,
     scalaAkkaHttpJacksonSample,
     scalaAkkaHttpSample,
+    //todo: zio http sample
     scalaDropwizardSample,
     scalaHttp4sSample,
     scalaHttp4sSampleV0_22
@@ -142,6 +144,7 @@ lazy val cli = modules.cli.project
   .settings(run / fork := true)
   .dependsOn(scalaSupport % "test->compile")
   .dependsOn(scalaAkkaHttp % "test->compile")
+  .dependsOn(scalaZioHttp % "test->compile")
   .dependsOn(scalaHttp4s % "test->compile")
 
 lazy val javaSupport = modules.javaSupport.project
@@ -169,6 +172,9 @@ lazy val scalaSupport = modules.scalaSupport.project
 lazy val scalaAkkaHttpSample = modules.scalaAkkaHttp.sample
 lazy val scalaAkkaHttpJacksonSample = modules.scalaAkkaHttp.sampleJackson
 lazy val scalaAkkaHttp = modules.scalaAkkaHttp.project
+  .customDependsOn("scala-support", scalaSupport)
+
+lazy val scalaZioHttp = modules.scalaZioHttp.project
   .customDependsOn("scala-support", scalaSupport)
 
 lazy val scalaHttp4sSampleV0_22 = modules.scalaHttp4s.sampleV0_22

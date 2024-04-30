@@ -9,6 +9,7 @@ class ScalaModuleMapper extends ModuleMapperLoader {
   def reified = typeTag[Target[ScalaLanguage]]
   def apply(frameworkName: String): Option[Set[String]] = frameworkName match {
     case "akka-http"         => Some(Set("akka-http", "circe"))
+    case "zio-http"         => Some(Set("zio-http", "circe")) // use zio - json
     case "http4s"            => Some(Set("circe", "http4s"))
     case "http4s-v0.23"      => Some(Set("circe", "http4s-v0.23"))
     case "http4s-v0.22"      => Some(Set("circe", "http4s-v0.22"))

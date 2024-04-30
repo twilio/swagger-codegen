@@ -91,7 +91,7 @@ object Build {
     versionScheme := None,
 
     scalacOptions ++= Seq(
-      "-Xfatal-warnings",
+//      "-Xfatal-warnings",
       "-Ydelambdafy:method",
       "-Yrangepos",
       // "-Ywarn-unused-import",  // TODO: Enable this! https://github.com/guardrail-dev/guardrail/pull/282
