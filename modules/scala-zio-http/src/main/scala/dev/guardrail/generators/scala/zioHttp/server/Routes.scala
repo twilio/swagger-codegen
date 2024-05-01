@@ -1,11 +1,11 @@
 package dev.guardrail.generators.scala.zioHttp.server
 
-import dev.guardrail.Target
-import dev.guardrail.generators.LanguageParameter
+import dev.guardrail.{AuthImplementation, Target}
+import dev.guardrail.generators.{LanguageParameter, RenderedRoutes}
 import dev.guardrail.generators.scala.{ResponseADTHelper, ScalaLanguage}
-import dev.guardrail.terms.{CollectionsLibTerms, LanguageTerms, OpenAPITerms, Responses, RouteMeta}
+import dev.guardrail.terms.{CollectionsLibTerms, LanguageTerms, OpenAPITerms, Responses, RouteMeta, SecurityScheme}
 import dev.guardrail.terms.protocol.StrictProtocolElems
-import dev.guardrail.terms.server.GenerateRouteMeta
+import dev.guardrail.terms.server.{GenerateRouteMeta, SecurityExposure}
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.PathItem.HttpMethod
 
@@ -24,11 +24,7 @@ object Routes {
   case class ResponseDefinitionsForGeneratedRoute(definitions: List[Defn],
                                                   routeGenMeta: GenerateRouteMeta[ScalaLanguage])
 
-  //todo
-  //import zio._
-  //import zio.http._
-
-  def generateRouteMeta(route: RouteMeta)(
+   def generateRouteMeta(route: RouteMeta)(
     protocolElems: List[StrictProtocolElems[ScalaLanguage]],
     components: Tracker[Option[Components]]
   )(implicit openApiTerms: OpenAPITerms[ScalaLanguage, Target],
@@ -68,8 +64,6 @@ object Routes {
 
   def generateRoute(resourceName: String, basePath: Option[String])
                    (meta: GenerateRouteMeta[ScalaLanguage]): Target[Option[RenderedRoute]] = {
-
-
     for {
       _ <- Target.log.debug(s"Args: ${resourceName}, ${basePath}, ${meta}")
       formArgs   <- prepareParameters(meta.parameters.formParams)
@@ -80,17 +74,23 @@ object Routes {
     } yield {
 
       val responseType: Type = {
-        t"Response[F]"
+        t"${Term.Name(resourceName)}.${Type.Name(meta.responseClsName)}"
       }
 
-      val params: List[List[Term.Param]] = {
-//        (formArgs ++ headerArgs ++ pathArgs ++ qsArgs)
-//          .map(_.param.decltpe)
-        List.empty
+      val orderedParameters: List[List[LanguageParameter[ScalaLanguage]]] = {
+        List(pathArgs)
       }
 
+      val respond: List[List[Term.Param]] = List(List(param"respond: ${Term.Name(resourceName)}.${Term.Name(meta.responseClsName)}.type"))
 
-      val methodSignature: Decl.Def = q"""def ${Term.Name(meta.methodName)}(...${params}): F[$responseType]"""
+      val params = respond ++ orderedParameters.map(
+        _.map(scalaParam =>
+          scalaParam.param.copy(decltpe = scalaParam.param.decltpe)
+        )
+      )
+
+
+      val methodSignature: Decl.Def = q"""def ${Term.Name(meta.methodName)}(...${params}): Task[$responseType]"""
 
       Option(
         RenderedRoute(
@@ -104,9 +104,43 @@ object Routes {
 
   }
 
-  private def httpMethodToZioHttp(method: HttpMethod) = method match {
+  def generateRoutes(
+                              tracing: Boolean,
+                              resourceName: String,
+                              handlerName: String,
+                              basePath: Option[String],
+                              routes: List[GenerateRouteMeta[ScalaLanguage]],
+                              protocolElems: List[StrictProtocolElems[ScalaLanguage]],
+                              securitySchemes: Map[String, SecurityScheme[ScalaLanguage]],
+                              securityExposure: SecurityExposure,
+                              authImplementation: AuthImplementation
+                            ): Target[RenderedRoutes[ScalaLanguage]] =
+    for {
+      renderedRoutes <- routes
+        .traverse(meta =>
+          generateRoute(resourceName = resourceName, basePath = basePath)(meta)
+        )
+        .map(_.flatten)
+      methodSigs = renderedRoutes.map(_.methodSig)
+    } yield RenderedRoutes[ScalaLanguage](
+      routes = renderedRoutes.map(_.methodSig),
+      classAnnotations = List.empty,
+      methodSigs = methodSigs,
+      supportDefinitions = renderedRoutes
+        .flatMap(_.supportDefinitions)
+        .groupBy(_.structure)
+        .flatMap(_._2.headOption)
+        .toList
+        .sortBy(_.toString()), // Only unique supportDefinitions by structure
+      handlerDefinitions = renderedRoutes.flatMap(_.handlerDefinitions),
+      securitySchemesDefinitions = List.empty
+    )
+
+
+  private def httpMethodToZioHttp(method: HttpMethod): Target[Term.Name] = method match {
     case HttpMethod.GET => Target.pure(Term.Name("Method.GET"))
     case HttpMethod.POST => Target.pure(Term.Name("Method.POST"))
+    case HttpMethod.PUT => Target.pure(Term.Name("Method.PUT"))
     case other => Target.raiseUserError(s"Unknown method: ${other}")
   }
 

@@ -10,7 +10,8 @@ object scalaZioHttp {
 
   val dependencies: Seq[ModuleID] = Seq(
     "dev.zio"       %% "zio-http"  % "3.0.0-RC4",
-    "org.scalatest" %% "scalatest" % scalatestVersion % Test
+    "org.scalatest" %% "scalatest" % scalatestVersion % Test,
+    "org.scalameta" %% "scalameta" % "4.8.14"
   ).map(_.cross(CrossVersion.for3Use2_13))
 
   val project = commonModule("scala-zio-http")

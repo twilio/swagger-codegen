@@ -1,5 +1,5 @@
 package dev.guardrail.generators.scala.zioHttp
-import scala.meta._
+import scala.meta.{Defn, Term, _}
 import scala.reflect.runtime.universe.typeTag
 import dev.guardrail.Target
 import dev.guardrail.core.Tracker
@@ -28,32 +28,16 @@ class ZioHttpGenerator private extends FrameworkTerms[ScalaLanguage, Target] {
   def getFrameworkImports(tracing: Boolean) =
     Target.pure(
       List(
-        q"import cats.data.EitherT",
-        q"import cats.implicits._",
-        q"import cats.effect.IO",
-        q"import cats.effect.Async",
-        q"import cats.effect.Sync",
-        q"import org.http4s.{Status => _, _}",
-        q"import org.http4s.client.{Client => Http4sClient}",
-        q"import org.http4s.client.UnexpectedStatus",
-        q"import org.http4s.dsl.io.Path",
-        q"import org.http4s.multipart._",
-        q"import org.http4s.headers._",
-        q"import org.http4s.implicits._",
-        q"import org.http4s.EntityEncoder._",
-        q"import org.http4s.EntityDecoder._",
-        q"import org.http4s.Media",
-        q"import org.typelevel.ci.CIString",
-        q"import fs2.Stream",
-        q"import io.circe.Json",
+        q"import zio._",
+        q"import zio.http._",
         q"import scala.language.higherKinds",
         q"import scala.language.implicitConversions"
       )
     )
-  def getFrameworkImplicits() =
+  def getFrameworkImplicits(): Target[Option[(Term.Name, Defn.Object)]] =
     Target.pure {
       val defn = q"""
-          object Http4sImplicits {
+          object ZioHttpImplicits {
             import scala.util.Try
             private[this] def pathEscape(s: String): String = Path.Segment(s).toString
             implicit def addShowablePath[T](implicit ev: Show[T]): AddPath[T] = AddPath.build[T](v => pathEscape(ev.show(v)))
@@ -61,14 +45,6 @@ class ZioHttpGenerator private extends FrameworkTerms[ScalaLanguage, Target] {
             private[this] def argEscape(k: String, v: String): String = Query.apply((k, Some(v))).toString
             implicit def addShowableArg[T](implicit ev: Show[T]): AddArg[T] = AddArg.build[T](key => v => argEscape(key, ev.show(v)))
 
-            type TraceBuilder[F[_]] = String => org.http4s.client.Client[F] => org.http4s.client.Client[F]
-
-            implicit def emptyEntityEncoder[F[_]: Sync]: EntityEncoder[F, EntityBody[Nothing]] = EntityEncoder.emptyEncoder
-
-            implicit def byteStreamEntityDecoder[F[_]:Sync]: EntityDecoder[F, Stream[F, Byte]] = new EntityDecoder[F,Stream[F,Byte]] {
-              override def decode(m: Media[F], strict: Boolean): DecodeResult[F, Stream[F, Byte]] = DecodeResult.successT(m.body)
-              override def consumes: Set[MediaRange] = Set(MediaRange.`*/*`)
-            }
 
             object DoubleNumber {
               def unapply(value: String): Option[Double] = Try(value.toDouble).toOption
@@ -83,11 +59,10 @@ class ZioHttpGenerator private extends FrameworkTerms[ScalaLanguage, Target] {
             }
           }
         """
-      Some((q"Http4sImplicits", defn))
+      Some((q"ZioHttpImplicits", defn))
     }
 
-  def getFrameworkDefinitions(tracing: Boolean) =
-    Target.pure(List.empty)
+  def getFrameworkDefinitions(tracing: Boolean) = Target.pure(List.empty)
 
   def lookupStatusCode(key: Tracker[String]): Target[(Int, scala.meta.Term.Name)] =
     key.unwrapTracker match {
