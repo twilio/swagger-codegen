@@ -11,7 +11,7 @@ object javaDropwizard {
   val dropwizardVersion      = "1.3.29"
   val javaxAnnotationVersion = "1.3.2"
   val jaxbApiVersion         = "2.3.1"
-  val jerseyVersion          = "2.25.1"
+  val jerseyVersion          = "2.43"
   val scalatestVersion       = "3.2.18"
   val vavrVersion            = "0.10.3"
 
