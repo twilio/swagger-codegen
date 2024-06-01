@@ -11,9 +11,9 @@ import dev.guardrail.terms._
 import dev.guardrail.terms.framework.FrameworkTerms
 import dev.guardrail.terms.protocol._
 import dev.guardrail.terms.server._
-import scala.meta._
+import _root_.scala.meta._
 import cats.implicits._
-import dev.guardrail.generators.scala.zioHttp.server.{Handlers, Routes}
+import dev.guardrail.generators.scala.zioHttp.server.{Handlers, RenderClass, Routes}
 
 class ZioHttpServerGeneratorLoader extends ServerGeneratorLoader {
   type L = ScalaLanguage
@@ -106,22 +106,22 @@ class ZioHttpServerGenerator(zioHttpVersion: ZioHttpVersion) extends ServerTerms
 //            context.authImplementation,
 //            securityExposure
 //          )
-//          classSrc <- renderClass(
-//            resourceName,
-//            handlerName,
-//            renderedRoutes.classAnnotations,
-//            renderedRoutes.routes,
-//            extraRouteParams,
-//            responseDefinitions.flatten,
-//            renderedRoutes.supportDefinitions,
-//            renderedRoutes.securitySchemesDefinitions,
-//            context.customExtraction,
-//            context.authImplementation
-//          )
+          classSrc <- Handlers.renderClass(
+            resourceName = resourceName,
+            handlerName = handlerName,
+            annotations = renderedRoutes.classAnnotations,
+            combinedRouteTerms = renderedRoutes.routes,
+            extraRouteParams = List.empty,
+            responseDefinitions = responseDefinitions.flatten,
+            supportDefinitions = renderedRoutes.supportDefinitions,
+            securitySchemesDefinitions = renderedRoutes.securitySchemesDefinitions,
+            customExtraction = context.customExtraction,
+            authImplementation = context.authImplementation
+          )
         } yield Server[ScalaLanguage](
           className, frameworkImports,
           handlerDefinition = handlerSrc,
-          serverDefinitions = List.empty
+          serverDefinitions = classSrc
         )
 
       }
