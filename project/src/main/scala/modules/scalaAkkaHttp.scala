@@ -10,7 +10,7 @@ object scalaAkkaHttp {
   val akkaHttpVersion        = "10.2.10"
   val akkaVersion            = "2.6.20"
   val catsVersion            = "2.10.0"
-  val circeVersion           = "0.14.6"
+  val circeVersion           = "0.14.8"
   val hibernateVersion       = "6.2.5.Final"
   val jacksonVersion         = "2.16.0"
   val javaxAnnotationVersion = "1.3.2"
