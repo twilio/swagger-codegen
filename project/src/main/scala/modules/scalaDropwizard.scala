@@ -13,7 +13,7 @@ object scalaDropwizard {
   val javaxAnnotationVersion = "1.3.2"
   val jaxbApiVersion         = "2.3.1"
   val jerseyVersion          = "2.25.1"
-  val scalatestVersion       = "3.2.18"
+  val scalatestVersion       = "3.2.19"
 
   val dependencies = Seq(
     "javax.annotation"               %  "javax.annotation-api"    % javaxAnnotationVersion, // for jdk11

@@ -4,7 +4,7 @@ import sbt._
 import sbt.Keys._
 
 object Dependencies {
-  val scalatestVersion       = "3.2.18"
+  val scalatestVersion       = "3.2.19"
 
   val testDependencies = Seq(
     "org.scalatest" %% "scalatest" % scalatestVersion % Test,
