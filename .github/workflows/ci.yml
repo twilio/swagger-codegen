@@ -44,7 +44,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GUARDRAIL_CI: true
-    - uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # 4.3.0
+    - uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       with:
         file: ./target/scala-${{ matrix.scala.bincompat }}/scoverage-report/scoverage.xml
         fail_ci_if_error: true
@@ -81,7 +81,7 @@ jobs:
           ${{ runner.os }}-scala-${{ matrix.scala.version }}-
     - name: Run tests
       run:  sbt ++${{ matrix.scala.version }} clean samples/clean coverage "runExample java ${{ matrix.framework.framework }}" ${{ matrix.framework.project }}/test coverageAggregate
-    - uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # 4.3.0
+    - uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       with:
         file: ./target/scala-${{ matrix.scala.bincompat }}/scoverage-report/scoverage.xml
         fail_ci_if_error: true
@@ -123,7 +123,7 @@ jobs:
     - name: Run tests
       if: ${{ env.combo_enabled == 'true' }}
       run:  sbt ++${{ matrix.scala.version }} clean samples/clean coverage "runExample scala ${{ matrix.framework.framework }}" ${{ matrix.framework.project }}/test coverageAggregate
-    - uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed # 4.3.0
+    - uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # 4.5.0
       if: ${{ env.combo_enabled == 'true' }}
       with:
         file: ./target/scala-${{ matrix.scala.bincompat }}/scoverage-report/scoverage.xml
