@@ -12,6 +12,7 @@ object allDeps {
     .settings(
       publish / skip := true,
       libraryDependencies ++= scalaAkkaHttp.dependencies,
+      libraryDependencies ++= scalaZioHttp.dependencies,
       libraryDependencies ++= scalaAkkaHttp.dependenciesJackson,
       libraryDependencies ++= scalaHttp4s.dependencies,
       libraryDependencies ++= javaSpringMvc.dependencies,

@@ -3,9 +3,9 @@ package dev.guardrail.generators.spi
 import org.scalactic.source.Position
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe.TypeTag
-
 import dev.guardrail.Target
 import dev.guardrail.terms.ProtocolTerms
 import dev.guardrail.generators.java
@@ -30,6 +30,7 @@ import dev.guardrail.generators.scala.circe.CirceProtocolGenerator
 import dev.guardrail.generators.scala.http4s.Http4sClientGenerator
 import dev.guardrail.generators.scala.http4s.Http4sGenerator
 import dev.guardrail.generators.scala.http4s.Http4sServerGenerator
+import dev.guardrail.generators.scala.zioHttp.ZioHttpServerGenerator
 import dev.guardrail.languages.LA
 
 class SpiTest extends AnyFunSuite with Matchers {
@@ -122,6 +123,7 @@ class SpiTest extends AnyFunSuite with Matchers {
   test("ServerGeneratorLoader: Scala") {
     testServerGeneratorLoader[ScalaLanguage, AkkaHttpServerGenerator]("akka-http", Set("akka-http", "circe"))
     testServerGeneratorLoader[ScalaLanguage, Http4sServerGenerator]("http4s", Set("http4s"))
+    testServerGeneratorLoader[ScalaLanguage, ZioHttpServerGenerator]("zio-http", Set("zio-http"))
   }
 
   test("ServerGeneratorLoader: Java") {
