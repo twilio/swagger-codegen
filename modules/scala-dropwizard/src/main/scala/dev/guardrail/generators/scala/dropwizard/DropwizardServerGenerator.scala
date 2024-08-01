@@ -274,6 +274,7 @@ class DropwizardServerGenerator private extends ServerTerms[ScalaLanguage, Targe
         q"import javax.ws.rs.core.Response.Status",
         q"import javax.ws.rs.core.{MediaType, Response}",
         q"import javax.ws.rs.{Consumes, DefaultValue, DELETE, FormParam, GET, HEAD, HeaderParam, OPTIONS, POST, PUT, Path, PathParam, Produces, QueryParam}",
+        q"import org.apache.shiro.authz.annotation.RequiresPermissions",
         q"import org.glassfish.jersey.media.multipart.FormDataParam",
         q"import org.hibernate.validator.valuehandling.UnwrapValidatedValue",
         q"import org.slf4j.LoggerFactory",
@@ -429,10 +430,14 @@ class DropwizardServerGenerator private extends ServerTerms[ScalaLanguage, Targe
             responseClsName,
             customExtractionFields,
             _,
-            RouteMeta(path, method, operation, _),
+            RouteMeta(path, method, operation, securityRequirements),
             parameters,
             responses
           ) =>
+        val oAuthScopes: Option[NonEmptyList[String]] =
+          securityRequirements.flatMap(_.requirements.flatTraverse(tr => tr.unwrapTracker("OAuth2").traverse(NonEmptyList.fromList).flatten))
+        val permissionsAnnotation = oAuthScopes.map(scopes => mod"@RequiresPermissions(Array(..${scopes.map(str => Lit.String(str)).toList}))")
+
         val pathSuffix     = ResponseHelpers.splitPathComponents(path.unwrapTracker).drop(commonPathPrefix.length).mkString("/", "/", "")
         val pathAnnotation = Option(pathSuffix).filter(_.nonEmpty).filterNot(_ == "/").map(p => mod"@Path(${Lit.String(p)})")
 
@@ -459,7 +464,7 @@ class DropwizardServerGenerator private extends ServerTerms[ScalaLanguage, Targe
           )
           .map(producesTerms => mod"@Produces(Array(..${producesTerms.toList}))")
 
-        val methodAnnotations = pathAnnotation.toList ++ List(httpMethodAnnotation) ++ consumesAnnotation ++ producesAnnotation
+        val methodAnnotations = pathAnnotation.toList ++ List(httpMethodAnnotation) ++ consumesAnnotation ++ producesAnnotation ++ permissionsAnnotation
 
         val formParamAnnot = if (consumes.exists(ContentType.isSubtypeOf[MultipartFormData])) "FormDataParam" else "FormParam"
         val methodParams =
