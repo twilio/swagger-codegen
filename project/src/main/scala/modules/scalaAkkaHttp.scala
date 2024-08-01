@@ -17,7 +17,7 @@ object scalaAkkaHttp {
   val javaxElVersion         = "3.0.0"
   val jaxbApiVersion         = "2.3.1"
   val refinedVersion         = "0.11.0"
-  val scalatestVersion       = "3.2.18"
+  val scalatestVersion       = "3.2.19"
 
   val dependencies = Seq(
     "javax.annotation"  %  "javax.annotation-api" % javaxAnnotationVersion, // for jdk11
