@@ -22,7 +22,7 @@ object javaDropwizard {
     "io.dropwizard"              %  "dropwizard-forms"       % dropwizardVersion,
     "org.asynchttpclient"        %  "async-http-client"      % ahcVersion,
     "junit"                      %  "junit"                  % "4.13.2"             % Test,
-    "nl.jqno.equalsverifier"     %  "equalsverifier"         % "3.15.4"            % Test,
+    "nl.jqno.equalsverifier"     %  "equalsverifier"         % "3.15.8"            % Test,
     "com.github.sbt"               %  "junit-interface"        % "0.13.3"             % Test,
     "com.github.tomakehurst"     %  "wiremock"               % "2.27.2"           % Test,
     "io.dropwizard"              %  "dropwizard-testing"     % dropwizardVersion  % Test,
