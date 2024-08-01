@@ -11,7 +11,7 @@ jobs:
     name: '[core] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-core.yml
         env:
@@ -20,7 +20,7 @@ jobs:
     name: '[java-async-http] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-java-async-http.yml
         env:
@@ -29,7 +29,7 @@ jobs:
     name: '[java-dropwizard] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-java-dropwizard.yml
         env:
@@ -38,7 +38,7 @@ jobs:
     name: '[java-spring-mvc] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-java-spring-mvc.yml
         env:
@@ -47,7 +47,7 @@ jobs:
     name: '[java-support] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-java-support.yml
         env:
@@ -56,7 +56,7 @@ jobs:
     name: '[scala-akka-http] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-scala-akka-http.yml
         env:
@@ -65,7 +65,7 @@ jobs:
     name: '[scala-dropwizard] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-scala-dropwizard.yml
         env:
@@ -74,7 +74,7 @@ jobs:
     name: '[scala-http4s] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-scala-http4s.yml
         env:
@@ -83,7 +83,7 @@ jobs:
     name: '[scala-support] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-scala-support.yml
         env:
@@ -92,7 +92,7 @@ jobs:
     name: '[cli] Draft release'
     runs-on: ubuntu-20.04
     steps:
-      - uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
+      - uses: release-drafter/release-drafter@3f0f87098bd6b5c5b9a36d49c41d998ea58f9348 # v6.0.0
         with:
           config-name: release-drafter-cli.yml
         env:
