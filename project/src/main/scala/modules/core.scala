@@ -8,7 +8,7 @@ import sbt._
 import sbt.Keys._
 
 object core {
-  val catsVersion = "2.10.0"
+  val catsVersion = "2.12.0"
 
   // Generate POJOs with convenience methods for the following classes:
   def emitSources(sourceManagedPath: java.io.File): List[(scala.meta.Source, java.io.File)] = {
