@@ -7,7 +7,7 @@ import sbt.Keys._
 
 object scalaHttp4s {
   val catsVersion            = "2.10.0"
-  val circeVersion           = "0.14.6"
+  val circeVersion           = "0.14.10"
   val javaxAnnotationVersion = "1.3.2"
   val jaxbApiVersion         = "2.3.1"
   val scalatestVersion       = "3.2.18"
