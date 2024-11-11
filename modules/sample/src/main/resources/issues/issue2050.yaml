@@ -1,0 +1,32 @@
+openapi: 3.0.1
+info:
+  title: Minimal Error Case
+  description: Testing that internal naming conflicts do not occur when a component and its own property have the same name
+  version: "1.0"
+servers:
+  - url: "http://localhost:1234"
+paths:
+  /test:
+    get:
+      operationId: Test
+      responses:
+        '200':
+          description: A test
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
+components:
+  schemas:
+    Test:
+      title: Test
+      required:
+        - test
+      type: object
+      properties:
+        test:
+          title: test
+          enum:
+            - optionA
+            - optionB
+          type: string

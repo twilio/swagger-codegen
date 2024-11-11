@@ -131,17 +131,17 @@ class TypesTest extends AnyFunSuite with Matchers with SwaggerSpecRunner {
         implicit val decodeTypes: _root_.io.circe.Decoder[Types] = new _root_.io.circe.Decoder[Types] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Types] = for (v0 <- c.downField("array").as[Option[Vector[Boolean]]]; v1 <- c.downField("map").as[Option[Map[String, Boolean]]]; v2 <- c.downField("obj").as[Option[io.circe.Json]]; v3 <- c.downField("bool").as[Option[Boolean]]; v4 <- c.downField("string").as[Option[String]]; v5 <- c.downField("date").as[Option[java.time.LocalDate]]; v6 <- c.downField("date_time").as[Option[java.time.OffsetDateTime]]; v7 <- c.downField("byte").as[Option[Base64String]]; v8 <- c.downField("long").as[Option[Long]]; v9 <- c.downField("int").as[Option[Int]]; v10 <- c.downField("float").as[Option[Float]]; v11 <- c.downField("double").as[Option[Double]]; v12 <- c.downField("number").as[Option[BigDecimal]]; v13 <- c.downField("integer").as[Option[BigInt]]; v14 <- c.downField("untyped").as[Option[io.circe.Json]]; v15 <- c.downField("custom").as[Option[Foo]]; v16 <- c.downField("customComplex").as[Option[Foo[Bar]]]; v17 <- c.downField("nested").as[Option[Types.Nested]]; v18 <- c.downField("nestedArray").as[Option[Vector[Types.NestedArray]]]; v19 <- c.downField("requiredArray").as[Vector[String]]) yield Types(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19) }
         case class Nested(prop1: Option[String] = None)
         object Nested {
-          implicit val encodeNested: _root_.io.circe.Encoder.AsObject[Nested] = {
-            _root_.io.circe.Encoder.AsObject.instance[Nested](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("prop1", a.prop1.asJson))))
+          implicit val encodeNested: _root_.io.circe.Encoder.AsObject[Types.Nested] = {
+            _root_.io.circe.Encoder.AsObject.instance[Types.Nested](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("prop1", a.prop1.asJson))))
           }
-          implicit val decodeNested: _root_.io.circe.Decoder[Nested] = new _root_.io.circe.Decoder[Nested] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Nested] = for (v0 <- c.downField("prop1").as[Option[String]]) yield Nested(v0) }
+          implicit val decodeNested: _root_.io.circe.Decoder[Types.Nested] = new _root_.io.circe.Decoder[Types.Nested] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Types.Nested] = for (v0 <- c.downField("prop1").as[Option[String]]) yield Types.Nested(v0) }
         }
         case class NestedArray(prop1: Option[String] = None)
         object NestedArray {
-          implicit val encodeNestedArray: _root_.io.circe.Encoder.AsObject[NestedArray] = {
-            _root_.io.circe.Encoder.AsObject.instance[NestedArray](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("prop1", a.prop1.asJson))))
+          implicit val encodeNestedArray: _root_.io.circe.Encoder.AsObject[Types.NestedArray] = {
+            _root_.io.circe.Encoder.AsObject.instance[Types.NestedArray](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("prop1", a.prop1.asJson))))
           }
-          implicit val decodeNestedArray: _root_.io.circe.Decoder[NestedArray] = new _root_.io.circe.Decoder[NestedArray] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[NestedArray] = for (v0 <- c.downField("prop1").as[Option[String]]) yield NestedArray(v0) }
+          implicit val decodeNestedArray: _root_.io.circe.Decoder[Types.NestedArray] = new _root_.io.circe.Decoder[Types.NestedArray] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Types.NestedArray] = for (v0 <- c.downField("prop1").as[Option[String]]) yield Types.NestedArray(v0) }
         }
       }
     """
@@ -193,10 +193,10 @@ class TypesTest extends AnyFunSuite with Matchers with SwaggerSpecRunner {
         implicit val decodeTypes: _root_.io.circe.Decoder[Types] = new _root_.io.circe.Decoder[Types] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Types] = for (v0 <- c.downField("composed").as[Option[Types.Composed]]) yield Types(v0) }
         case class Composed(string: Option[String] = None, int: Option[Int] = None)
         object Composed {
-          implicit val encodeComposed: _root_.io.circe.Encoder.AsObject[Composed] = {
-            _root_.io.circe.Encoder.AsObject.instance[Composed](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("string", a.string.asJson), ("int", a.int.asJson))))
+          implicit val encodeComposed: _root_.io.circe.Encoder.AsObject[Types.Composed] = {
+            _root_.io.circe.Encoder.AsObject.instance[Types.Composed](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("string", a.string.asJson), ("int", a.int.asJson))))
           }
-          implicit val decodeComposed: _root_.io.circe.Decoder[Composed] = new _root_.io.circe.Decoder[Composed] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Composed] = for (v0 <- c.downField("string").as[Option[String]]; v1 <- c.downField("int").as[Option[Int]]) yield Composed(v0, v1) }
+          implicit val decodeComposed: _root_.io.circe.Decoder[Types.Composed] = new _root_.io.circe.Decoder[Types.Composed] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Types.Composed] = for (v0 <- c.downField("string").as[Option[String]]; v1 <- c.downField("int").as[Option[Int]]) yield Types.Composed(v0, v1) }
         }
       }
     """
@@ -243,16 +243,16 @@ class TypesTest extends AnyFunSuite with Matchers with SwaggerSpecRunner {
         implicit val decodeFirst: _root_.io.circe.Decoder[First] = new _root_.io.circe.Decoder[First] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[First] = for (v0 <- c.downField("Second").as[Option[First.Second]]) yield First(v0) }
         case class Second(third: Option[First.Second.Third] = None)
         object Second {
-          implicit val encodeSecond: _root_.io.circe.Encoder.AsObject[Second] = {
-            _root_.io.circe.Encoder.AsObject.instance[Second](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("Third", a.third.asJson))))
+          implicit val encodeSecond: _root_.io.circe.Encoder.AsObject[First.Second] = {
+            _root_.io.circe.Encoder.AsObject.instance[First.Second](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("Third", a.third.asJson))))
           }
-          implicit val decodeSecond: _root_.io.circe.Decoder[Second] = new _root_.io.circe.Decoder[Second] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Second] = for (v0 <- c.downField("Third").as[Option[First.Second.Third]]) yield Second(v0) }
+          implicit val decodeSecond: _root_.io.circe.Decoder[First.Second] = new _root_.io.circe.Decoder[First.Second] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[First.Second] = for (v0 <- c.downField("Third").as[Option[First.Second.Third]]) yield First.Second(v0) }
           case class Third(fourth: Option[String] = None)
           object Third {
-            implicit val encodeThird: _root_.io.circe.Encoder.AsObject[Third] = {
-              _root_.io.circe.Encoder.AsObject.instance[Third](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("Fourth", a.fourth.asJson))))
+            implicit val encodeThird: _root_.io.circe.Encoder.AsObject[First.Second.Third] = {
+              _root_.io.circe.Encoder.AsObject.instance[First.Second.Third](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("Fourth", a.fourth.asJson))))
             }
-            implicit val decodeThird: _root_.io.circe.Decoder[Third] = new _root_.io.circe.Decoder[Third] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Third] = for (v0 <- c.downField("Fourth").as[Option[String]]) yield Third(v0) }
+            implicit val decodeThird: _root_.io.circe.Decoder[First.Second.Third] = new _root_.io.circe.Decoder[First.Second.Third] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[First.Second.Third] = for (v0 <- c.downField("Fourth").as[Option[String]]) yield First.Second.Third(v0) }
           }
         }
       }
@@ -302,10 +302,10 @@ class TypesTest extends AnyFunSuite with Matchers with SwaggerSpecRunner {
           implicit val decodeSecond: _root_.io.circe.Decoder[Second] = new _root_.io.circe.Decoder[Second] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Second] = for (v0 <- c.downField("value").as[Option[String]]; v1 <- c.downField("nested").as[Option[Second.Nested]]) yield Second(v0, v1) }
           case class Nested(value: Option[Boolean] = None)
           object Nested {
-            implicit val encodeNested: _root_.io.circe.Encoder.AsObject[Nested] = {
-              _root_.io.circe.Encoder.AsObject.instance[Nested](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("value", a.value.asJson))))
+            implicit val encodeNested: _root_.io.circe.Encoder.AsObject[Second.Nested] = {
+              _root_.io.circe.Encoder.AsObject.instance[Second.Nested](a => _root_.io.circe.JsonObject.fromIterable(_root_.scala.Vector(("value", a.value.asJson))))
             }
-            implicit val decodeNested: _root_.io.circe.Decoder[Nested] = new _root_.io.circe.Decoder[Nested] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Nested] = for (v0 <- c.downField("value").as[Option[Boolean]]) yield Nested(v0) }
+            implicit val decodeNested: _root_.io.circe.Decoder[Second.Nested] = new _root_.io.circe.Decoder[Second.Nested] { final def apply(c: _root_.io.circe.HCursor): _root_.io.circe.Decoder.Result[Second.Nested] = for (v0 <- c.downField("value").as[Option[Boolean]]) yield Second.Nested(v0) }
           }
         }
        """
