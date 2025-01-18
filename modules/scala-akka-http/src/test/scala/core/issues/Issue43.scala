@@ -269,8 +269,8 @@ class Issue43 extends AnyFunSpec with Matchers with SwaggerSpecRunner {
     val (
       ProtocolDefinitions(
         ClassDefinition(namePersianCat, tpePersianCat, fullTypePersioanCat, clsPersianCat, staticDefnsPersianCat, persianCatParents)
-          :: ClassDefinition(nameDog, tpeDog, fullTypeDog, clsDog, staticDefnsDog, dogParents)
-          :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameCat, tpeCat, fullTypeCat, trtCat, staticDefnsCat) :: Nil,
+        :: ClassDefinition(nameDog, tpeDog, fullTypeDog, clsDog, staticDefnsDog, dogParents)
+        :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameCat, tpeCat, fullTypeCat, trtCat, staticDefnsCat) :: Nil,
         _,
         _,
         _,
@@ -466,8 +466,8 @@ class Issue43 extends AnyFunSpec with Matchers with SwaggerSpecRunner {
     val (
       ProtocolDefinitions(
         ClassDefinition(nameDog, tpeDog, fullTypeDog, clsDog, staticDefnsDog, dogParents)
-          :: ClassDefinition(namePersianCat, tpePersianCat, fullTypePersianCat, clsPersianCat, staticDefnsPersianCat, persianCatParents)
-          :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameCat, tpeCat, fullTypeCat, trtCat, staticDefnsCat) :: Nil,
+        :: ClassDefinition(namePersianCat, tpePersianCat, fullTypePersianCat, clsPersianCat, staticDefnsPersianCat, persianCatParents)
+        :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameCat, tpeCat, fullTypeCat, trtCat, staticDefnsCat) :: Nil,
         _,
         _,
         _,
@@ -566,7 +566,7 @@ class Issue43 extends AnyFunSpec with Matchers with SwaggerSpecRunner {
     val (
       ProtocolDefinitions(
         ClassDefinition(nameCat, tpeCat, fullTypeCat, clsCat, staticDefnsCat, catParents)
-          :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameMammal, tpeMammal, fullTypeMammal, trtMammal, staticDefnsMammal) :: Nil,
+        :: ADT(namePet, tpePet, fullTypePet, trtPet, staticDefnsPet) :: ADT(nameMammal, tpeMammal, fullTypeMammal, trtMammal, staticDefnsMammal) :: Nil,
         _,
         _,
         _,

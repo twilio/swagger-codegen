@@ -131,12 +131,10 @@ class JacksonHelpersTest extends AnyFreeSpec with Matchers {
       intercept[NoSuchElementException](discriminatorExpression("3424.3123", "number", Some("foobaz")).value)
     }
 
-    "random types" in {
+    "random types" in
       intercept[NoSuchElementException](discriminatorExpression("asdsd", "foobaz").value)
-    }
 
-    "non-matching string types" in {
+    "non-matching string types" in
       intercept[NoSuchElementException](discriminatorExpression("asdasd", "integer", Some("int32")).value)
-    }
   }
 }

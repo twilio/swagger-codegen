@@ -69,14 +69,13 @@ class BaselineSpecs extends AnyFreeSpec with Matchers with BeforeAndAfterAll wit
       assertTrue(content.contains("mouse"))
     }
 
-    "required param missing" in {
+    "required param missing" in
       mvc
         .perform(
           get("/v2/pet/findByStatus")
             .accept(MediaType.APPLICATION_JSON)
         )
         .andExpect(status.is4xxClientError())
-    }
 
     "query params (list)" in {
       val entityBody = new util.ArrayList[Pet]()
